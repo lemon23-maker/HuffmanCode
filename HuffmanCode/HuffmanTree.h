@@ -1,5 +1,5 @@
 #ifndef HuffmanTree_H
-#define HUffmanTree_H
+#define HUffmanTree_H 2
 typedef struct HTNode {
 
 	unsigned int weight;

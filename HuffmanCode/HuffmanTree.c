@@ -8,46 +8,47 @@ int* get_w(char* s,int *n,char **ch) {
 	for (int i = 0; s[i] != '\0'; i++)
 	{
 		switch (s[i]) {
-			case 'a':t[0]++; if(t[0]==0)n1++; break;
-			case 'b':t[1]++; if(t[1]==0)n1++; break;
-			case 'c':t[2]++; if(t[2]==0)n1++; break;
-			case 'd':t[3]++; if(t[3]==0)n1++; break;
-			case 'e':t[4]++; if(t[4]==0)n1++; break;
-			case 'f':t[5]++; if(t[5]==0)n1++; break;
-			case 'g':t[6]++; if(t[6]==0)n1++; break;
-			case 'h':t[7]++; if(t[7]==0)n1++; break;
-			case 'i':t[8]++; if(t[8]==0)n1++; break;
-			case 'j':t[9]++; if(t[9]==0)n1++; break;
-			case 'k':t[10]++;if(t[10]==0)n1++; break;
-			case 'l':t[11]++;if(t[11]==0)n1++; break;
-			case 'm':t[12]++;if(t[12]==0)n1++; break;
-			case 'n':t[13]++;if(t[13]==0)n1++; break;
-			case 'o':t[14]++;if(t[14]==0)n1++; break;
-			case 'p':t[15]++;if(t[15]==0)n1++; break;
-			case 'q':t[16]++;if(t[16]==0)n1++; break;
-			case 'r':t[17]++;if(t[17]==0)n1++; break;
-			case 's':t[18]++;if(t[18]==0)n1++; break;
-			case 't':t[19]++;if(t[19]==0)n1++; break;
-			case 'u':t[20]++;if(t[20]==0)n1++; break;
-			case 'v':t[21]++;if(t[21]==0)n1++; break;
-			case 'w':t[22]++;if(t[22]==0)n1++; break;
-			case 'x':t[23]++;if(t[23]==0)n1++; break;
-			case 'y':t[24]++;if(t[24]==0)n1++; break;
-			case 'z':t[25]++;if(t[25]==0)n1++; break;
-		}
-	}
-	*n = n1;
+			case 'a':if(t[0]==0)n1++;t[0]++;  break;
+			case 'b':if(t[1]==0)n1++;t[1]++;  break;
+			case 'c':if(t[2]==0)n1++;t[2]++;  break;
+			case 'd':if(t[3]==0)n1++;t[3]++;  break;
+			case 'e':if(t[4]==0)n1++;t[4]++;  break;
+			case 'f':if(t[5]==0)n1++;t[5]++;  break;
+			case 'g':if(t[6]==0)n1++;t[6]++;  break;
+			case 'h':if(t[7]==0)n1++;t[7]++;  break;
+			case 'i':if(t[8]==0)n1++;t[8]++;  break;
+			case 'j':if(t[9]==0)n1++;t[9]++;  break;
+			case 'k':if(t[10]==0)n1++;t[10]++; break;
+			case 'l':if(t[11]==0)n1++;t[11]++; break;
+			case 'm':if(t[12]==0)n1++;t[12]++; break;
+			case 'n':if(t[13]==0)n1++;t[13]++; break;
+			case 'o':if(t[14]==0)n1++;t[14]++; break;
+			case 'p':if(t[15]==0)n1++;t[15]++; break;
+			case 'q':if(t[16]==0)n1++;t[16]++; break;
+			case 'r':if(t[17]==0)n1++;t[17]++; break;
+			case 's':if(t[18]==0)n1++;t[18]++; break;
+			case 't':if(t[19]==0)n1++;t[19]++; break;
+			case 'u':if(t[20]==0)n1++;t[20]++; break;
+			case 'v':if(t[21]==0)n1++;t[21]++; break;
+			case 'w':if(t[22]==0)n1++;t[22]++; break;
+			case 'x':if(t[23]==0)n1++;t[23]++; break;
+			case 'y':if(t[24]==0)n1++;t[24]++; break;
+			case 'z':if(t[25]==0)n1++;t[25]++; break;
+		}							 
+	}								 
+	*n = n1;						 
 	int* w = (int*)malloc(n1 * sizeof(int));
 	*ch = (char*)malloc(n1 * sizeof(char));
-	for (int i = 0,j = 0; i < n; i++)
-	{
-		while (t[j]==0)
-		{
-			j++;
-		}
-		w[i] = t[j];
-		(*ch)[i] = j + 96;
-		printf("%c:%d ", j + 96, t[j]);
+	for (int i = 0,j = 0; i < n1; i++)
+	{								 
+		while (t[j]==0)				 
+		{							 
+			j++;					 
+		}							 
+		w[i] = t[j];				 
+		(*ch)[i] = j + 97;			 
+		printf("%c:%d ", (*ch)[i], t[j]);
+		j++;						 
 	}
 	printf("\n");
 	return w;
@@ -57,6 +58,9 @@ HuffmanTree get_HuffmanTree(int* w, int n) {
 	if (n <= 1) {
 		HuffmanTree ht = (HuffmanTree)malloc(sizeof(HTNode));
 		ht->weight = *w;
+		ht->lchild = -1;
+		ht->rchild = -1;
+		ht->parent = -1;
 		return;
 	}
 	int m = 2 * n - 1;
@@ -83,7 +87,7 @@ HuffmanTree get_HuffmanTree(int* w, int n) {
 		ht[s1].parent = i;
 		ht[s2].parent = i;
 	}
-
+	return ht;
 }
 
 void select(HuffmanTree ht, int n, int* s1, int* s2) {
@@ -95,7 +99,7 @@ void select(HuffmanTree ht, int n, int* s1, int* s2) {
 
 			if (ht[i].weight <= min1) {
 				min2 = min1;
-				*s1 = *s2;
+				*s2 = *s1;
 				min1 = ht[i].weight;
 				*s1 = i;
 
